@@ -1,0 +1,554 @@
+[gd_scene load_steps=22 format=1]
+
+[ext_resource path="res://tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://arcade_platformerV2.png" type="Texture" id=2]
+[ext_resource path="res://character/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/hud.gd" type="Script" id=4]
+[ext_resource path="res://objects/moeda.tscn" type="PackedScene" id=5]
+[ext_resource path="res://character/enemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/EarthPlataform.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "default"
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 519, 136 ), Vector2( 424, 136 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ false, true ] }
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "default"
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 680, 136 ), Vector2( 744, 136 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends KinematicBody2D\n\nexport(int, 1, 10) var life = 1\nvar alive = true\n\nfunc _ready():\n\tget_node(\"animMotion\").play(\"default\")\n\tget_node(\"anim\").play(\"walk\")\n\t\nfunc damage(qnt):\n\tif !alive:\n\t\treturn\n\tlife-= qnt\n\tif life <= 0:\n\t\talive = false \n\t\tget_node(\"shape\").queue_free()\n\t\tget_node(\"anim\").play(\"death\")\n\t\tyield(get_node(\"anim\"), \"finished\")\n\t\tqueue_free()\n"
+
+[sub_resource type="Animation" id=4]
+
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 696, 136 ), Vector2( 760, 136 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+
+[sub_resource type="GDScript" id=5]
+
+script/source = "extends KinematicBody2D\n\nexport(int, 1, 10) var life = 1\nvar alive = true\n\nfunc _ready():\n\tget_node(\"animMotion\").play(\"default\")\n\tget_node(\"anim\").play(\"walk\")\n\t\nfunc damage(qnt):\n\tif !alive:\n\t\treturn\n\tlife-= qnt\n\tif life <= 0:\n\t\talive = false \n\t\tget_node(\"shape\").queue_free()\n\t\tget_node(\"anim\").play(\"death\")\n\t\tyield(get_node(\"anim\"), \"finished\")\n\t\tqueue_free()\n"
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "default"
+length = 4.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 937, 136 ), Vector2( 1097, 136 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+
+[sub_resource type="GDScript" id=7]
+
+script/source = "extends KinematicBody2D\n\nexport(int, 1, 10) var life = 1\nvar alive = true\n\nfunc _ready():\n\tget_node(\"animMotion\").play(\"default\")\n\tget_node(\"anim\").play(\"walk\")\n\t\nfunc damage(qnt):\n\tif !alive:\n\t\treturn\n\tlife-= qnt\n\tif life <= 0:\n\t\talive = false \n\t\tget_node(\"shape\").queue_free()\n\t\tget_node(\"anim\").play(\"death\")\n\t\tyield(get_node(\"anim\"), \"finished\")\n\t\tqueue_free()\n"
+
+[sub_resource type="Animation" id=8]
+
+resource/name = "default"
+length = 4.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 953, 136 ), Vector2( 1112, 136 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+
+[sub_resource type="GDScript" id=9]
+
+script/source = "extends KinematicBody2D\n\nexport(int, 1, 10) var life = 1\nvar alive = true\n\nfunc _ready():\n\tget_node(\"animMotion\").play(\"default\")\n\tget_node(\"anim\").play(\"walk\")\n\t\nfunc damage(qnt):\n\tif !alive:\n\t\treturn\n\tlife-= qnt\n\tif life <= 0:\n\t\talive = false \n\t\tget_node(\"shape\").queue_free()\n\t\tget_node(\"anim\").play(\"death\")\n\t\tyield(get_node(\"anim\"), \"finished\")\n\t\tqueue_free()\n"
+
+[sub_resource type="Animation" id=10]
+
+resource/name = "default"
+length = 4.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 969, 136 ), Vector2( 1128, 136 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+
+[sub_resource type="Animation" id=11]
+
+resource/name = "default"
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 2488, 184 ), Vector2( 2488, 120 ) ] }
+
+[sub_resource type="Animation" id=12]
+
+resource/name = "default"
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 2440, 8 ), Vector2( 2440, 104 ) ] }
+
+[sub_resource type="Animation" id=13]
+
+resource/name = "default"
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 2376, -8 ), Vector2( 2360, -120 ) ] }
+
+[sub_resource type="Animation" id=14]
+
+resource/name = "default"
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 2487, -248 ), Vector2( 2424, -120 ) ] }
+
+[node name="Level" type="Node"]
+
+[node name="map" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell/size = Vector2( 16, 16 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 0, 0, 0, 0, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 2
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( -2096994, 33, -2096993, 33, -2096992, 33, -2096991, 33, -2096990, 33, -2096989, 33, -2096988, 33, -2096987, 33, -2096986, 33, -2096985, 33, -2096984, 33, -2096983, 33, -2096982, 33, -2031458, 33, -2031457, 33, -2031456, 33, -2031455, 33, -2031454, 33, -2031453, 33, -2031452, 33, -2031451, 33, -2031450, 33, -2031449, 33, -2031448, 33, -2031447, 33, -2031446, 33, -1965922, 33, -1965921, 33, -1965920, 33, -1965919, 33, -1965918, 33, -1965917, 33, -1965916, 33, -1965915, 33, -1965914, 33, -1965913, 33, -1965912, 33, -1965911, 33, -1965910, 33, -1900386, 33, -1900385, 33, -1900384, 33, -1900383, 33, -1900382, 33, -1900381, 33, -1900380, 33, -1900379, 33, -1900378, 33, -1900377, 33, -1900376, 33, -1900375, 33, -1900374, 33, -1834850, 33, -1834849, 33, -1834848, 33, -1834847, 33, -1834846, 33, -1834845, 33, -1834844, 33, -1834843, 33, -1834842, 33, -1834841, 33, -1834840, 33, -1834839, 33, -1834838, 33, -1769314, 33, -1769313, 33, -1769312, 33, -1769311, 33, -1769310, 33, -1769309, 33, -1769308, 33, -1769307, 33, -1769306, 33, -1769305, 33, -1769304, 33, -1769303, 33, -1769302, 33, -1703771, 33, -1703770, 33, -1703769, 33, -1703768, 33, -1703767, 33, -1703766, 33, -1638235, 33, -1638234, 33, -1638233, 33, -1638232, 33, -1638231, 33, -1638230, 33, -1572699, 33, -1572698, 33, -1572697, 33, -1572696, 33, -1572695, 33, -1572694, 33, -1507163, 33, -1507162, 33, -1507161, 33, -1507160, 33, -1507159, 33, -1507158, 33, -1441627, 33, -1441626, 33, -1441625, 33, -1441624, 33, -1441623, 33, -1441622, 33, -1376091, 33, -1376090, 33, -1376089, 33, -1376088, 33, -1376087, 33, -1376086, 33, -1310555, 33, -1310554, 33, -1310553, 33, -1310552, 33, -1310551, 33, -1310550, 33, -1245019, 33, -1245018, 33, -1245017, 33, -1245016, 33, -1245015, 33, -1245014, 33, -1179483, 33, -1179482, 33, -1179481, 33, -1179480, 33, -1179479, 33, -1179478, 33, -1113947, 33, -1113946, 33, -1113945, 33, -1113944, 33, -1113943, 33, -1113942, 33, -1048418, 35, -1048417, 35, -1048416, 35, -1048415, 35, -1048414, 35, -1048413, 35, -1048412, 35, -1048411, 35, -1048410, 35, -1048409, 35, -1048408, 35, -1048407, 35, -1048406, 35, -982882, 35, -982881, 35, -982880, 35, -982879, 35, -982878, 35, -982877, 35, -982876, 35, -982875, 35, -982874, 35, -982873, 35, -982872, 35, -982871, 35, -982870, 35, -917346, 35, -917345, 35, -917344, 35, -917343, 35, -917342, 35, -917341, 35, -917340, 35, -917339, 35, -917338, 35, -917337, 35, -917336, 35, -917335, 35, -917334, 35, -851810, 35, -851809, 35, -851808, 35, -851807, 35, -851806, 35, -851805, 35, -851804, 35, -851803, 35, -851802, 35, -851801, 35, -851800, 35, -851799, 35, -851798, 35, -786274, 35, -786273, 35, -786272, 35, -786271, 35, -786270, 35, -786269, 35, -786268, 35, -786267, 35, -786266, 35, -786265, 35, -786264, 35, -786263, 35, -786262, 35, -720738, 35, -720737, 35, -720736, 35, -720735, 35, -720734, 35, -720733, 35, -720732, 35, -720731, 35, -720730, 35, -720729, 35, -720728, 35, -720727, 35, -720726, 35, -655202, 35, -655201, 35, -655200, 35, -655199, 35, -655198, 35, -655197, 35, -655196, 35, -655195, 35, -655194, 35, -655193, 35, -655192, 35, -655191, 35, -655190, 35, -589666, 35, -589665, 35, -589664, 35, -589663, 35, -589662, 35, -589661, 35, -589660, 35, -589659, 35, -589658, 35, -589657, 35, -589656, 35, -589655, 35, -589654, 35, -524130, 35, -524129, 35, -524128, 35, -524127, 35, -524126, 35, -524125, 35, -524124, 35, -524123, 35, -524122, 35, -524121, 35, -524120, 35, -524119, 35, -524118, 35, -458594, 35, -458593, 35, -458592, 35, -458591, 35, -458590, 35, -458589, 35, -458588, 35, -458587, 35, -458586, 35, -458585, 35, -458584, 35, -458583, 35, -458582, 35, -393058, 35, -393057, 35, -393056, 35, -393055, 35, -393054, 35, -393053, 35, -393052, 35, -393051, 35, -393050, 35, -393049, 35, -393048, 35, -393047, 35, -393046, 35, -327522, 35, -327521, 35, -327520, 35, -327519, 35, -327518, 35, -327517, 35, -327516, 35, -327515, 35, -327514, 35, -327513, 35, -327512, 35, -327511, 35, -327510, 35, -261986, 35, -261985, 35, -261984, 35, -261983, 35, -261982, 35, -261981, 35, -261980, 35, -261979, 35, -261978, 35, -261977, 35, -261976, 35, -261975, 35, -261974, 35, -196450, 35, -196449, 35, -196448, 35, -196447, 35, -196446, 35, -196445, 35, -196444, 35, -196443, 35, -196442, 35, -196441, 35, -196440, 35, -196439, 35, -196438, 35, -130914, 35, -130913, 35, -130912, 35, -130911, 35, -130910, 35, -130909, 35, -130908, 35, -130907, 35, -130906, 35, -130905, 35, -130904, 35, -130903, 35, -130902, 35, -65378, 35, -65377, 35, -65376, 35, -65375, 35, -65374, 35, -65373, 35, -65372, 35, -65371, 35, -65370, 35, -65369, 35, -65368, 35, -65367, 35, -65366, 35, 158, 35, 159, 35, 160, 35, 161, 35, 162, 35, 163, 35, 164, 35, 165, 35, 166, 35, 167, 35, 168, 35, 169, 35, 170, 35, 65694, 35, 65695, 35, 65696, 35, 65697, 35, 65698, 35, 65699, 35, 65700, 35, 65701, 35, 65702, 35, 65703, 35, 65704, 35, 65705, 35, 65706, 35, 131230, 35, 131231, 35, 131232, 35, 131233, 35, 131234, 35, 131235, 35, 131236, 35, 131237, 35, 131238, 35, 131239, 35, 131240, 35, 131241, 35, 131242, 35, 262137, 3, 262138, 4, 262139, 4, 262140, 4, 262141, 4, 262142, 4, 262143, 4, 196608, 4, 196609, 4, 196610, 5, 196766, 35, 196767, 35, 196768, 35, 196769, 35, 196770, 35, 196771, 35, 196772, 35, 196773, 35, 196774, 35, 196775, 35, 196776, 35, 196777, 35, 196778, 35, 327673, 6, 327674, 7, 327675, 7, 327676, 7, 327677, 7, 327678, 7, 327679, 7, 262144, 7, 262145, 7, 262146, 8, 262302, 35, 262303, 35, 262304, 35, 262305, 35, 262306, 35, 262307, 35, 262308, 35, 262309, 35, 262310, 35, 262311, 35, 262312, 35, 262313, 35, 262314, 35, 393209, 6, 393210, 7, 393211, 7, 393212, 7, 393213, 7, 393214, 7, 393215, 7, 327680, 7, 327681, 7, 327682, 8, 327731, 29, 327734, 29, 327754, 31, 327757, 31, 327838, 35, 327839, 35, 327840, 35, 327841, 35, 327842, 35, 327843, 35, 327844, 35, 327845, 35, 327846, 35, 327847, 35, 327848, 35, 327849, 35, 327850, 35, 458745, 6, 458746, 7, 458747, 7, 458748, 7, 458749, 7, 458750, 7, 458751, 7, 393216, 7, 393217, 7, 393218, 8, 393248, 12, 393257, 29, 393266, 29, 393267, 29, 393270, 29, 393271, 29, 393289, 31, 393290, 31, 393293, 31, 393294, 31, 393374, 35, 393375, 35, 393376, 35, 393377, 35, 393378, 35, 393379, 35, 393380, 35, 393381, 35, 393382, 35, 393383, 35, 393384, 35, 393385, 35, 393386, 35, 524281, 6, 524282, 7, 524283, 7, 524284, 7, 524285, 7, 524286, 7, 524287, 7, 458752, 7, 458753, 7, 458754, 8, 458764, 15, 458792, 29, 458793, 29, 458801, 29, 458802, 29, 458803, 29, 458805, 29, 458806, 29, 458807, 29, 458808, 29, 458824, 31, 458825, 31, 458826, 31, 458829, 31, 458830, 31, 458831, 31, 458910, 35, 458911, 35, 458912, 35, 458913, 35, 458914, 35, 458915, 35, 458916, 35, 458917, 35, 458918, 35, 458919, 35, 458920, 35, 458921, 35, 458922, 35, 589817, 6, 589818, 7, 589819, 7, 589820, 7, 589821, 7, 589822, 7, 589823, 7, 524288, 7, 524289, 7, 524290, 8, 524299, 15, 524300, 15, 524303, 14, 524317, 14, 524327, 29, 524328, 29, 524329, 29, 524336, 29, 524337, 29, 524338, 29, 524339, 29, 524340, 29, 524341, 29, 524342, 29, 524343, 29, 524344, 29, 524345, 29, 524359, 31, 524360, 31, 524361, 31, 524362, 31, 524365, 31, 524366, 31, 524367, 31, 524368, 31, 524446, 35, 524447, 35, 524448, 35, 524449, 35, 524450, 35, 524451, 35, 524452, 35, 524453, 35, 524454, 35, 524455, 35, 524456, 35, 524457, 35, 524458, 35, 655353, 6, 655354, 7, 655355, 7, 655356, 7, 655357, 7, 655358, 7, 655359, 7, 589824, 7, 589825, 7, 589826, 8, 589827, 0, 589828, 1, 589829, 1, 589830, 1, 589831, 13, 589832, 13, 589833, 1, 589834, 1, 589835, 1, 589836, 1, 589837, 1, 589838, 1, 589839, 1, 589840, 2, 589841, 13, 589842, 13, 589843, 13, 589844, 13, 589845, 13, 589846, 13, 589847, 13, 589848, 13, 589849, 0, 589850, 1, 589851, 1, 589852, 1, 589853, 1, 589854, 1, 589855, 1, 589856, 1, 589857, 1, 589858, 1, 589859, 1, 589860, 1, 589861, 1, 589862, 1, 589863, 1, 589864, 1, 589865, 1, 589866, 1, 589867, 1, 589868, 1, 589869, 1, 589870, 1, 589871, 1, 589872, 1, 589873, 1, 589874, 1, 589875, 1, 589876, 1, 589877, 1, 589878, 1, 589879, 1, 589880, 1, 589881, 1, 589882, 1, 589883, 1, 589884, 1, 589885, 1, 589886, 1, 589887, 1, 589888, 1, 589889, 1, 589890, 1, 589891, 1, 589892, 1, 589893, 1, 589894, 1, 589895, 1, 589896, 1, 589897, 1, 589898, 1, 589901, 1, 589902, 1, 589903, 1, 589904, 1, 589905, 1, 589906, 1, 589909, 31, 589912, 31, 589915, 31, 589919, 31, 589925, 31, 589931, 31, 589932, 31, 589933, 31, 589940, 31, 589948, 31, 589956, 31, 589962, 31, 589963, 31, 589964, 31, 589982, 35, 589983, 35, 589984, 35, 589985, 35, 589986, 35, 589987, 35, 589988, 35, 589989, 35, 589990, 35, 589991, 35, 589992, 35, 589993, 35, 589994, 35, 720889, 6, 720890, 7, 720891, 7, 720892, 7, 720893, 7, 720894, 7, 720895, 7, 655360, 7, 655361, 7, 655362, 8, 655442, 31, 655467, 31, 655468, 31, 655469, 31, 655498, 31, 655499, 31, 655500, 31, 655518, 35, 655519, 35, 655520, 35, 655521, 35, 655522, 35, 655523, 35, 655524, 35, 655525, 35, 655526, 35, 655527, 35, 655528, 35, 655529, 35, 655530, 35, 786425, 6, 786426, 7, 786427, 7, 786428, 7, 786429, 7, 786430, 7, 786431, 7, 720896, 7, 720897, 7, 720898, 8, 720978, 31, 720979, 31, 721003, 31, 721004, 31, 721005, 31, 721034, 31, 721035, 31, 721036, 31, 721037, 35, 721038, 35, 721039, 35, 721040, 35, 721041, 35, 721042, 35, 721043, 35, 721044, 35, 721045, 35, 721046, 35, 721047, 35, 721054, 35, 721055, 35, 721056, 35, 721057, 35, 721058, 35, 721059, 35, 721060, 35, 721061, 35, 721062, 35, 721063, 35, 721064, 35, 721065, 35, 721066, 35, 851961, 9, 851962, 10, 851963, 10, 851964, 10, 851965, 10, 851966, 10, 851967, 10, 786432, 10, 786433, 10, 786434, 11, 786514, 31, 786515, 31, 786516, 31, 786539, 31, 786540, 31, 786541, 31, 786570, 31, 786571, 31, 786572, 31, 786573, 35, 786574, 35, 786575, 35, 786576, 35, 786577, 35, 786578, 35, 786579, 35, 786580, 35, 786581, 35, 786582, 35, 786583, 35, 786590, 35, 786591, 35, 786592, 35, 786593, 35, 786594, 35, 786595, 35, 786596, 35, 786597, 35, 786598, 35, 786599, 35, 786600, 35, 786601, 35, 786602, 35, 852050, 31, 852051, 31, 852052, 31, 852053, 31, 852075, 31, 852076, 31, 852077, 31, 852106, 31, 852107, 31, 852108, 31, 852109, 35, 852110, 35, 852111, 35, 852112, 35, 852113, 35, 852114, 35, 852115, 35, 852116, 35, 852117, 35, 852118, 35, 852119, 35, 852126, 35, 852127, 35, 852128, 35, 852129, 35, 852130, 35, 852131, 35, 852132, 35, 852133, 35, 852134, 35, 852135, 35, 852136, 35, 852137, 35, 852138, 35, 917586, 31, 917587, 31, 917588, 31, 917589, 31, 917590, 31, 917591, 31, 917592, 31, 917593, 31, 917594, 31, 917595, 31, 917596, 31, 917597, 31, 917598, 31, 917599, 31, 917600, 31, 917601, 31, 917602, 31, 917603, 31, 917604, 31, 917605, 31, 917606, 31, 917607, 31, 917608, 31, 917609, 31, 917610, 31, 917611, 31, 917612, 31, 917613, 31, 917642, 31, 917643, 31, 917644, 31, 917645, 35, 917646, 35, 917647, 35, 917648, 35, 917649, 35, 917650, 35, 917651, 35, 917652, 35, 917653, 35, 917654, 35, 917655, 35, 917662, 35, 917663, 35, 917664, 35, 917665, 35, 917666, 35, 917667, 35, 917668, 35, 917669, 35, 917670, 35, 917671, 35, 917672, 35, 917673, 35, 917674, 35 )
+
+[node name="parallax" type="ParallaxBackground" parent="."]
+
+editor/display_folded = true
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = false
+
+[node name="layer" type="ParallaxLayer" parent="parallax"]
+
+motion/scale = Vector2( 0.5, 0 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 400, 0 )
+
+[node name="bg01" type="Sprite" parent="parallax/layer"]
+
+transform/scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 2 )
+centered = false
+region = true
+region_rect = Rect2( 0, 160, 160, 144 )
+
+[node name="bg02" type="Sprite" parent="parallax/layer"]
+
+transform/pos = Vector2( 200, 0 )
+transform/scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 2 )
+centered = false
+region = true
+region_rect = Rect2( 0, 160, 160, 144 )
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+script/script = ExtResource( 4 )
+
+[node name="coins_score" type="Label" parent="HUD"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 5.0
+margin/top = 23.0
+margin/right = 45.0
+margin/bottom = 37.0
+text = "00"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="coin" type="Node" parent="."]
+
+editor/display_folded = true
+
+[node name="coin" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 272, 115 )
+
+[node name="coin 2" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 319, 115 )
+
+[node name="coin 3" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 368, 116 )
+
+[node name="coin4" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 825, 45 )
+
+[node name="coin5" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 854, 45 )
+
+[node name="coin6" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1195, 46 )
+
+[node name="coin7" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1222, 45 )
+
+[node name="coin8" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1856, 116 )
+
+[node name="coin9" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1984, 115 )
+
+[node name="coin10" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2112, 117 )
+
+[node name="coin11" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2432, -27 )
+
+[node name="coin12" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2450, -27 )
+
+[node name="coin13" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2414, -27 )
+
+[node name="coin14" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2344, -154 )
+
+[node name="coin15" parent="coin" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2363, -154 )
+
+[node name="one" type="Node" parent="coin"]
+
+[node name="coin20" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2560, -285 )
+
+[node name="coin26" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2593, -347 )
+
+[node name="coin29" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2593, -381 )
+
+[node name="coin28" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2593, -364 )
+
+[node name="coin27" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2576, -364 )
+
+[node name="coin25" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2576, -347 )
+
+[node name="coin24" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2559, -347 )
+
+[node name="coin31" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2593, -295 )
+
+[node name="coin30" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2611, -287 )
+
+[node name="coin23" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2593, -313 )
+
+[node name="coin22" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2576, -313 )
+
+[node name="coin21" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2576, -296 )
+
+[node name="coin19" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2593, -330 )
+
+[node name="coin18" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2576, -330 )
+
+[node name="coin17" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2559, -330 )
+
+[node name="coin16" parent="coin/one" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 2542, -330 )
+
+[node name="enemys" type="Node" parent="."]
+
+editor/display_folded = true
+
+[node name="enemy" parent="enemys" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 442.431, 136 )
+
+[node name="animMotion" type="AnimationPlayer" parent="enemys/enemy"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="enemy1" parent="enemys" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 680, 136 )
+
+[node name="animMotion" type="AnimationPlayer" parent="enemys/enemy1"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="enemy2" parent="enemys" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 696, 136 )
+script/script = SubResource( 3 )
+
+[node name="animMotion" type="AnimationPlayer" parent="enemys/enemy2"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 4 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="enemy3" parent="enemys" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 937, 136 )
+script/script = SubResource( 5 )
+
+[node name="animMotion" type="AnimationPlayer" parent="enemys/enemy3"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 6 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="enemy4" parent="enemys" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 953, 136 )
+script/script = SubResource( 7 )
+
+[node name="animMotion" type="AnimationPlayer" parent="enemys/enemy4"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 8 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="enemy5" parent="enemys" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 1128, 136 )
+script/script = SubResource( 9 )
+
+[node name="animMotion" type="AnimationPlayer" parent="enemys/enemy5"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="plataforms" type="Node" parent="."]
+
+editor/display_folded = true
+
+[node name="EarthPlataform1" parent="plataforms" instance=ExtResource( 7 )]
+
+editor/display_folded = false
+transform/pos = Vector2( 2488, 120 )
+
+[node name="animMotion" type="AnimationPlayer" parent="plataforms/EarthPlataform1"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 11 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="EarthPlataform" parent="plataforms" instance=ExtResource( 7 )]
+
+editor/display_folded = false
+transform/pos = Vector2( 2440, 8 )
+
+[node name="animMotion" type="AnimationPlayer" parent="plataforms/EarthPlataform"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 12 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="EarthPlataform2" parent="plataforms" instance=ExtResource( 7 )]
+
+editor/display_folded = false
+transform/pos = Vector2( 2360, -120 )
+
+[node name="animMotion" type="AnimationPlayer" parent="plataforms/EarthPlataform2"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 13 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+[node name="EarthPlataform3" parent="plataforms" instance=ExtResource( 7 )]
+
+editor/display_folded = false
+transform/pos = Vector2( 2487, -248 )
+
+[node name="animMotion" type="AnimationPlayer" parent="plataforms/EarthPlataform3"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/default = SubResource( 14 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "default"
+
+

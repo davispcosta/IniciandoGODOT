@@ -1,0 +1,158 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://scripts/player.gd" type="Script" id=1]
+[ext_resource path="res://arcade_platformerV2.png" type="Texture" id=2]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -7, 15, -7, 2, 7, 2, 7, 15 )
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "falling"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Rect2( 32, 32, 32, 32 ) ] }
+
+[sub_resource type="Animation" id=3]
+
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Rect2( 0, 0, 32, 32 ) ] }
+
+[sub_resource type="Animation" id=4]
+
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Rect2( 32, 32, 32, 32 ) ] }
+
+[sub_resource type="Animation" id=5]
+
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":1, "values":[ Rect2( 0, 0, 32, 32 ), Rect2( 32, 0, 32, 32 ), Rect2( 64, 0, 32, 32 ), Rect2( 0, 32, 32, 32 ) ] }
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -2, 14, 4, 14, 4, 16, -5, 16, -5, 14 )
+
+[node name="player" type="KinematicBody2D"]
+
+editor/display_folded = true
+transform/pos = Vector2( 240, 115 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 2
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+region = true
+region_rect = Rect2( 32, 32, 32, 32 )
+
+[node name="shape" type="CollisionPolygon2D" parent="."]
+
+build_mode = 0
+polygon = Vector2Array( -7, 15, -7, 2, 7, 2, 7, 15 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="camera" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="anim" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/falling = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/jumping = SubResource( 4 )
+anims/walking = SubResource( 5 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="rayLeft" type="RayCast2D" parent="."]
+
+transform/pos = Vector2( -6, 15 )
+enabled = true
+cast_to = Vector2( 0, 3 )
+layer_mask = 2
+type_mask = 15
+
+[node name="rayRight" type="RayCast2D" parent="."]
+
+transform/pos = Vector2( 5, 15 )
+enabled = true
+cast_to = Vector2( 0, 3 )
+layer_mask = 2
+type_mask = 15
+
+[node name="foot" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 4
+collision/mask = 4
+
+[node name="shape" type="CollisionPolygon2D" parent="foot"]
+
+build_mode = 0
+polygon = Vector2Array( -5, 14, -5, 16, 4, 16, 4, 14, -2, 14 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[connection signal="body_enter" from="foot" to="." method="_on_foot_body_enter"]
+
+
